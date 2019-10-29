@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), Animator.AnimatorListener {
 
 	fun fadeAnimation(view: View) {
 
-		fadeAnimator = ObjectAnimator.ofFloat(targetImage, "alpha", 1.0f,0.0f)
+		fadeAnimator = ObjectAnimator.ofFloat(targetImage, "alpha", 1.0f, 0.0f)
 		fadeAnimator?.apply {
 			duration = 1500
 			repeatCount = 1
@@ -104,5 +104,18 @@ class MainActivity : AppCompatActivity(), Animator.AnimatorListener {
 	override fun onAnimationCancel(animation: Animator?) {
 
 		Toast.makeText(this, "Animation Cancelled", Toast.LENGTH_SHORT).show()
+	}
+
+	fun setFromXML(view: View) {
+
+		val animator = AnimatorInflater.loadAnimator(this, R.animator.set)
+		animator.apply {
+			setTarget(targetImage)
+			start()
+		}
+	}
+
+	fun setFromCode(view: View) {
+
 	}
 }
