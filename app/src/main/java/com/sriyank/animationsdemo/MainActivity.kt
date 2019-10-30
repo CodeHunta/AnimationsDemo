@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+
+
 class MainActivity : AppCompatActivity(), Animator.AnimatorListener {
 
 	private var rotateAnimator: ObjectAnimator? = null
@@ -114,30 +116,46 @@ class MainActivity : AppCompatActivity(), Animator.AnimatorListener {
 	}
 
 	fun setFromCode(view: View) {
-        // Root Animator Set
-        val rootSet = AnimatorSet()
 
-// Flip Animation
-        val flip = ObjectAnimator.ofFloat(targetImage, "rotationX", 0.0f, 360.0f)
-        flip.duration = 500
-// Child Animator Set
-        val childSet = AnimatorSet()
+		// Root Animator Set
+		val rootSet = AnimatorSet()
 
-// Scale Animations
-        val scaleX = ObjectAnimator.ofFloat(targetImage, "scaleX", 1.0f, 1.5f)
-        scaleX.duration = 500
-        scaleX.interpolator = OvershootInterpolator()
+		// Flip Animation
+		val flip = ObjectAnimator.ofFloat(targetImage, "rotationX", 0.0f, 360.0f)
+		flip.duration = 500
 
-        val scaleY = ObjectAnimator.ofFloat(targetImage, "scaleY", 1.0f, 1.5f)
-        scaleY.duration = 500
-        scaleY.interpolator = OvershootInterpolator()
+		// Child Animator Set
+		val childSet = AnimatorSet()
 
-//        rootSet.playSequentially(flip, childSet)
-//        childSet.playTogether(scaleX, scaleY)
+		// Scale Animations
+		val scaleX = ObjectAnimator.ofFloat(targetImage, "scaleX", 1.0f, 1.5f)
+		scaleX.duration = 500
 
-        rootSet.play(flip).before(childSet)
-        childSet.play(scaleX).with(scaleY)
+		val scaleY = ObjectAnimator.ofFloat(targetImage, "scaleY", 1.0f, 1.5f)
+		scaleY.duration = 500
 
-        rootSet.start()
-    }
+//		rootSet.playSequentially(flip, childSet)
+//		childSet.playTogether(scaleX, scaleY)
+
+		rootSet.play(flip).before(childSet)
+		childSet.play(scaleX).with(scaleY)
+
+		rootSet.start()
+	}
+
+	fun viewPropertyAnimator(view: View) {
+
+		val vpa = targetImage.animate()
+
+		vpa.apply {
+			duration = 1000
+			rotationX(360.0f)
+			scaleX(1.5f)
+			scaleY(1.5f)
+			translationX(200.0f)
+			alpha(0.5f)
+			interpolator = OvershootInterpolator()
+			start()
+		}
+	}
 }
