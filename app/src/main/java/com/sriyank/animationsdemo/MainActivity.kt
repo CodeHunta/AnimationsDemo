@@ -1,12 +1,10 @@
 package com.sriyank.animationsdemo
 
-import android.animation.Animator
-import android.animation.AnimatorInflater
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
+import android.animation.*
 import android.os.Bundle
 //import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -116,6 +114,30 @@ class MainActivity : AppCompatActivity(), Animator.AnimatorListener {
 	}
 
 	fun setFromCode(view: View) {
+        // Root Animator Set
+        val rootSet = AnimatorSet()
 
-	}
+// Flip Animation
+        val flip = ObjectAnimator.ofFloat(targetImage, "rotationX", 0.0f, 360.0f)
+        flip.duration = 500
+// Child Animator Set
+        val childSet = AnimatorSet()
+
+// Scale Animations
+        val scaleX = ObjectAnimator.ofFloat(targetImage, "scaleX", 1.0f, 1.5f)
+        scaleX.duration = 500
+        scaleX.interpolator = OvershootInterpolator()
+
+        val scaleY = ObjectAnimator.ofFloat(targetImage, "scaleY", 1.0f, 1.5f)
+        scaleY.duration = 500
+        scaleY.interpolator = OvershootInterpolator()
+
+//        rootSet.playSequentially(flip, childSet)
+//        childSet.playTogether(scaleX, scaleY)
+
+        rootSet.play(flip).before(childSet)
+        childSet.play(scaleX).with(scaleY)
+
+        rootSet.start()
+    }
 }
