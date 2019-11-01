@@ -2,15 +2,15 @@ package com.sriyank.animationsdemo
 
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-// import android.support.v7.app.AppCompatActivity
+//import android.support.v7.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var batteryAnimation: AnimationDrawable
-    lateinit var signalAnimation: AnimationDrawable
+    private lateinit var batteryAnimation: AnimationDrawable
+    private lateinit var signalAnimation: AnimationDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
